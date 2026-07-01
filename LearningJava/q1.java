@@ -1,3 +1,5 @@
+package LearningJava;
+
 import java.util.Scanner;
 
 public class q1 {
