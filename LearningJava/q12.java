@@ -24,6 +24,8 @@ public class q12 extends Language{
 
 //Abstract Class - Method --> Learning More
 
+/*
+
 
 package LearningJava;
 
@@ -66,5 +68,45 @@ public class q12
         System.out.println("----------------------");
         cat.makeSound();
         cat.eat();
+    }
+}
+
+*/
+
+
+package LearningJava;
+
+abstract class Motorbike
+{
+    abstract void speed();
+}
+
+class MountainBike extends Motorbike
+{
+    public void speed()
+    {
+        System.out.println("a Mountain Bike Goes Slow!");
+    }
+}
+
+class SportsBike extends Motorbike
+{
+    public void speed()
+    {
+        System.out.println("a Sports Bike Goes Fast!");
+    }
+}
+
+public class q12
+{
+    public static void main(String[] args)
+    {
+        MountainBike bike1 = new MountainBike();
+        SportsBike bike2 = new SportsBike();
+
+        bike1.speed();
+
+        bike2.speed();
+
     }
 }
