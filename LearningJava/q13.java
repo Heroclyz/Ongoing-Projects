@@ -5,7 +5,7 @@ interface area
     void CalculateArea(int s, int l);
 }
 
-class Home
+class Home implements area
 {
     public void CalculateArea(int s, int l)
     {
