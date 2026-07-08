@@ -1,4 +1,5 @@
 package Library;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Member
@@ -21,7 +22,10 @@ class Member
     {
         return name;
     }
-
+    public String getId()
+    {
+        return id;
+    }
     public boolean passVerification(String Password)
     {
         return this.password.equals(Password);
@@ -35,10 +39,10 @@ class Member
 }
 class Student extends Member
 {
-    private String no;
+    private int no;
     private int bookcount;
 
-    public Student(String id, String name, String password, String no)
+    public Student(String id, String name, String password, int no)
     {
         super(id,name,password);
         this.no = no;
@@ -61,7 +65,8 @@ class Student extends Member
     @Override
     public void displayInfo()
     {
-        System.out.println("Student No = " + no);
+        System.out.println("------------------");
+        System.out.println("\nStudent No = " + no);
         System.out.println("Borrowed Book Amount = " + bookcount);
         System.out.println("------------------");
     }
@@ -73,17 +78,22 @@ public class library {
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
+        ArrayList<Student> studentDataBase = new ArrayList<>();
         String action = "";
         while(true)
         {
-            System.out.println("Press Enter for New Registration, or type 'Close' to close the Registration Menu");
+            System.out.println("\nSelect an action:");
+            System.out.println("1 - Register New Student");
+            System.out.println("2 - System Login");
+            System.out.println("Type 'Close' to shut down");
+            
             action = input.nextLine();
             if(action.equalsIgnoreCase("Close"))
             {
                 System.out.println("Shutting The System Down!");
                 break;
             }
-
+            else if(action.equals("1")){
             System.out.println("--- Enter Student Information ---");
 
             System.out.print("Student ID = ");
@@ -93,12 +103,11 @@ public class library {
             System.out.print("Student's Password = ");
             String pass = input.nextLine();
             System.out.print("Student Number = ");
-            String no = input.nextLine();
-
+            int no = input.nextInt();
+            input.nextLine();
             Student newStudent = new Student(id,name,pass,no);
-
+            studentDataBase.add(newStudent);
             newStudent.displayInfo();
-
             while (true) {
                 System.out.print("\nWould you like to borrow a book? (Yes/No): ");
                 String bookAnswer = input.nextLine();
@@ -111,8 +120,54 @@ public class library {
                     System.out.println("Please enter a valid option (Y/N).");
                 }
             }
+            }
+            else if(action.equals("2"))
+            {
+                System.out.println("Enter ID = ");
+                String loginID = input.nextLine();
+                System.out.println("Enter Password");
+                String loginPass = input.nextLine();
+
+                Student loginStudent = null;
+
+
+                for(Student student : studentDataBase)
+                {
+                    if(student.getId().equals(loginID) && student.passVerification(loginPass))
+                    {
+                        loginStudent = student;
+                        break;
+                    }
+                }
+            
+            if(loginStudent != null)
+            {
+                System.out.println("Login Succesfull!");
+                loginStudent.displayInfo();
+            
+            while (true) {
+                System.out.print("\nWould you like to borrow a book? (Yes/No): ");
+                String bookAnswer = input.nextLine();
+
+                if (bookAnswer.equalsIgnoreCase("Yes")) {
+                    loginStudent.borrowBooks();
+                } else if (bookAnswer.equalsIgnoreCase("No")) {
+                    break;
+                } else {
+                    System.out.println("Please enter a valid option (Y/N).");
+                }
+            }
+        }
+        else {
+            System.out.println("Login Failed! Incorrect ID or Password!");
+        }
+        }
+        else {
+            System.out.println("Invalid Action! Select 1-2 or Type Close Please!");
+        }
         }
         input.close();
-        }
     }
+    
+}
 
