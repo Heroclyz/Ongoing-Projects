@@ -13,6 +13,9 @@ public class q20 {
         languages.add("JavaScript");
         languages.add("Python");
 
+        String lang = languages.get(4);
+
+        System.out.println(lang);
         System.out.println(languages + " ");
     }
 }
