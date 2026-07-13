@@ -21,5 +21,10 @@ public class q20 {
 
         String language = languages.get(1);
         System.out.println(language);
+
+
+        languages.remove(2);
+
+        System.out.println(languages + " ");
     }
 }
