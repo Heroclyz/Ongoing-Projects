@@ -19,12 +19,20 @@ public class q20 {
         System.out.println(lang);
         System.out.println(languages + " ");
 
-        String language = languages.get(1);
-        System.out.println(language);
+        String language1 = languages.get(1);
+        System.out.println(language1);
 
 
         languages.remove(2);
 
         System.out.println(languages + " ");
+
+
+
+        System.out.println("Printing The Info with ForEach");
+
+        for (String language : languages) {
+            System.out.print(language + " ");
+        }
     }
 }
