@@ -11,8 +11,8 @@ public class q21 {
 
         numbers.add(5);
         numbers.add(10);
-        numbers.add(15);
-        numbers.add(20);
+        numbers.add(8);
+        numbers.add(12);
         numbers.add(25);
 
 
@@ -25,5 +25,13 @@ public class q21 {
         System.out.println(numbers + " ");
         numbers.sort(Comparator.reverseOrder());
         System.out.println(numbers + " ");
+
+
+
+        ArrayList<Integer> clonedNumbers = (ArrayList<Integer>)numbers.clone();
+
+        System.out.println(clonedNumbers);
+
+
     }
 }
