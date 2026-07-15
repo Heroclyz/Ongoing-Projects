@@ -32,6 +32,8 @@ public class q21 {
 
         System.out.println(clonedNumbers);
 
+        System.out.println(numbers.contains(5));
+        System.out.println(numbers.contains(3));
 
     }
 }
