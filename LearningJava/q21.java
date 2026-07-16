@@ -40,5 +40,10 @@ public class q21 {
 
         System.out.println(empty);
 
+
+
+        int index = numbers.indexOf(8);
+
+        System.out.println(index);
     }
 }
