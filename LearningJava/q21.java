@@ -8,6 +8,7 @@ public class q21 {
     {
         ArrayList<Integer> numbers = new ArrayList<>();
 
+        numbers.ensureCapacity(5);
 
         numbers.add(5);
         numbers.add(10);
@@ -34,6 +35,9 @@ public class q21 {
 
         System.out.println(numbers.contains(5));
         System.out.println(numbers.contains(3));
+
+
+
 
     }
 }
