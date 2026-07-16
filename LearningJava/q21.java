@@ -36,8 +36,9 @@ public class q21 {
         System.out.println(numbers.contains(5));
         System.out.println(numbers.contains(3));
 
+        boolean empty = numbers.isEmpty();
 
-
+        System.out.println(empty);
 
     }
 }
