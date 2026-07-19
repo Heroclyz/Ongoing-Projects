@@ -23,12 +23,14 @@ public class rockpaperscisors
     }
     public static void main(String[] args)
     {
-        char player,computer;
+        char player,computer,playAgain;
         int result;
         Scanner input = new Scanner(System.in);
         Random random = new Random();
+
+        do{
         System.out.println("Game of Rock Paper Scisors");
-        System.out.print("for Rock type 'R', for Paper type 'P', for Scissors type 'S'");
+        System.out.print("for Rock type 'R', for Paper type 'P', for Scissors type 'S':");
         player = input.next().toUpperCase().charAt(0);
 
         if(player != 'R' && player != 'P' && player != 'S')
@@ -71,7 +73,11 @@ public class rockpaperscisors
         {
             System.out.println("Unfortunately! Computer Won!"); 
         }
+        System.out.print("Do you want to play again? (Y/N): ");
+        playAgain = input.next().toUpperCase().charAt(0);
+    }while(playAgain == 'Y');
 
+    System.out.println("Thanks for Playing!");
         input.close();
     }
 }
