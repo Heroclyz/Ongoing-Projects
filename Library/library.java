@@ -66,6 +66,7 @@ class Student extends Member
     public void displayInfo()
     {
         System.out.println("------------------");
+        super.displayInfo();
         System.out.println("\nStudent No = " + no);
         System.out.println("Borrowed Book Amount = " + bookcount);
         System.out.println("------------------");
@@ -86,7 +87,7 @@ public class library {
             System.out.println("1 - Register New Student");
             System.out.println("2 - System Login");
             System.out.println("Type 'Close' to shut down");
-            
+            System.out.println("Choice:");
             action = input.nextLine();
             if(action.equalsIgnoreCase("Close"))
             {
@@ -125,49 +126,56 @@ public class library {
             {
                 System.out.println("Enter ID = ");
                 String loginID = input.nextLine();
-                System.out.println("Enter Password");
-                String loginPass = input.nextLine();
 
                 Student loginStudent = null;
 
-
                 for(Student student : studentDataBase)
                 {
-                    if(student.getId().equals(loginID) && student.passVerification(loginPass))
+                    if(student.getId().equals(loginID))
                     {
                         loginStudent = student;
                         break;
                     }
                 }
             
-            if(loginStudent != null)
-            {
-                System.out.println("Login Succesfull!");
-                loginStudent.displayInfo();
-            
-            while (true) {
-                System.out.print("\nWould you like to borrow a book? (Yes/No): ");
-                String bookAnswer = input.nextLine();
+                if(loginStudent == null)
+                {
+                    System.out.println("Wrong ID!");
+                }
+                else
+                {
+                    System.out.println("Enter Password = ");
+                    String loginPass = input.nextLine();
 
-                if (bookAnswer.equalsIgnoreCase("Yes")) {
-                    loginStudent.borrowBooks();
-                } else if (bookAnswer.equalsIgnoreCase("No")) {
-                    break;
-                } else {
-                    System.out.println("Please enter a valid option (Y/N).");
+                    if(!loginStudent.passVerification(loginPass))
+                    {
+                        System.out.println("Wrong Password!");
+                    }
+                    else
+                    {
+                        System.out.println("Login Succesfull!");
+                        loginStudent.displayInfo();
+                        
+                        while (true) {
+                            System.out.print("\nWould you like to borrow a book? (Yes/No): ");
+                            String bookAnswer = input.nextLine();
+
+                            if (bookAnswer.equalsIgnoreCase("Yes")) {
+                                loginStudent.borrowBooks();
+                            } else if (bookAnswer.equalsIgnoreCase("No")) {
+                                break;
+                            } else {
+                                System.out.println("Please enter a valid option (Y/N).");
+                            }
+                        }
+                    }
                 }
             }
-        }
-        else {
-            System.out.println("Login Failed! Incorrect ID or Password!");
-        }
-        }
-        else {
-            System.out.println("Invalid Action! Select 1-2 or Type Close Please!");
-        }
+            else {
+                System.out.println("Invalid Action! Select 1-2 or Type Close Please!");
+            }
         }
         input.close();
     }
     
 }
-
