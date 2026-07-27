@@ -51,6 +51,14 @@ class Nutrition
         System.out.println("Current Water = " + currentWater + "/ Target Water = " + targetWater);
         System.out.println("------------------------------------------------");
     }
+    public void resetNutrition()
+    {
+        this.currentCalories = 0;
+        this.currentCarbs = 0;
+        this.currentFats = 0;
+        this.currentProtein = 0;
+        this.currentWater = 0;
+    }
 }
 
 class WorkoutDays
@@ -117,7 +125,7 @@ class Users
         routine.add(new WorkoutDays("-Friday-", "Shoulders & Arm"));
         routine.add(new WorkoutDays("-Saturday-", "Legs & Abs"));
     }
-    public Nutrition geNutrition()
+    public Nutrition getNutrition()
     {
         return nutritionlist;
     }
@@ -150,6 +158,7 @@ class Users
         {
             currentDayIndex = 0;
         }
+        nutritionlist.resetNutrition();
         System.out.println("Advancing to the Next Day! Your Next Workout is " + routine.get(currentDayIndex).getTargetMuscles());
     }
 }
@@ -196,17 +205,17 @@ public class fitnesstracking {
                 System.out.print("Fats");
                 int fat = input.nextInt();
 
-                myUser.geNutrition().addFood(cal, pro, carb, fat);
+                myUser.getNutrition().addFood(cal, pro, carb, fat);
             }
             else if(choice.equals("4"))
             {
                 System.out.print("Water: ");
                 int water = input.nextInt();
-                myUser.geNutrition().addWater(water);
+                myUser.getNutrition().addWater(water);
             }
             else if(choice.equals("5"))
             {
-                myUser.geNutrition().displayInfo();
+                myUser.getNutrition().displayInfo();
             }
             else if(choice.equals("6"))
             {
