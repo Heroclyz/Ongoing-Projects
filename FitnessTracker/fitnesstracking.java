@@ -8,7 +8,8 @@ class Nutrition
 {
     private int targetCalories, targetProtein, targetCarbs, targetFats, targetWater;
     private int currentCalories, currentProtein, currentCarbs, currentFats, currentWater;
-
+    private boolean tookCreatine;
+    private boolean tookThermo;
     public Nutrition(int calories, int protein, int carbs, int fat, int water)
     {
         this.targetCalories = calories;
@@ -23,6 +24,9 @@ class Nutrition
         this.currentFats = 0;
         this.currentProtein = 0;
         this.currentWater = 0;
+
+        this.tookCreatine = false;
+        this.tookThermo = false;
     }
 
     public void addFood(int cal, int pro, int carb, int fat)
@@ -41,6 +45,13 @@ class Nutrition
         System.out.println("Current Water = " + currentWater);
     }
 
+    public void takeSupplements()
+    {
+        this.tookCreatine = true;
+        this.tookThermo = true;
+        System.out.println("Creatine and Thermo Burner taken!");
+    }
+
     public void displayInfo()
     {
         System.out.println("\n---- Daily Nutrition and Water Status ----");
@@ -49,6 +60,14 @@ class Nutrition
         System.out.println("Current Fats = " + currentFats + "/ Target Fats = " + targetFats);
         System.out.println("Current Calories = " + currentCalories + "/ Target Calories = " + targetCalories);
         System.out.println("Current Water = " + currentWater + "/ Target Water = " + targetWater);
+        if((tookCreatine && tookThermo) == true)
+        {
+            System.out.println("Supplements Taken!");
+        }
+        else 
+        {
+            System.out.println("Supplements are not Taken!");
+        }
         System.out.println("------------------------------------------------");
     }
     public void resetNutrition()
@@ -58,6 +77,8 @@ class Nutrition
         this.currentFats = 0;
         this.currentProtein = 0;
         this.currentWater = 0;
+        this.tookCreatine = false;
+        this.tookThermo = false;
     }
 }
 
@@ -93,6 +114,9 @@ class WorkoutDays
         this.isCompleted = true;
         System.out.println("Congrats! You Completed the " + targetMuscles + " Training!");
     }
+    public void resetWorkoutStatus() {
+        this.isCompleted = false;
+    }
 
 }
 
@@ -106,7 +130,10 @@ class Users
     private int currentDayIndex;
 
 
-    public Users(String name, int age, Nutrition nutritions)
+    private double currentWeight;
+    private double targetWeight;
+    
+    public Users(String name, int age, Nutrition nutritions,double currentWeight, double targetWeight)
     {
         // i will use the name and age tomorrow!
         this.name = name;
@@ -114,7 +141,19 @@ class Users
         this.nutritionlist = nutritions;
         this.routine = new ArrayList<>();
         this.currentDayIndex = 0;
+        this.currentWeight = currentWeight;
+        this.targetWeight = targetWeight;
         setupArnoldSplit();
+    }
+    public void updateWeight(double newWeight) {
+        this.currentWeight = newWeight;
+        double diffrence = currentWeight - targetWeight;
+        System.out.println("\nWeight updated to: " + currentWeight + " kg.");
+        if (diffrence > 0) {
+            System.out.println("Remaining target weight (" + targetWeight + " kg): " + diffrence + " kg.");
+        } else {
+            System.out.println("Goal achieved!" + targetWeight + " kg!");
+        }
     }
     private void setupArnoldSplit()
     {
@@ -171,7 +210,7 @@ public class fitnesstracking {
         System.out.println("---------- Welcome to The Fitness Tracking App! ----------");
 
         Nutrition myNutrition = new Nutrition(2900,170,300,60, 6500);
-        Users myUser = new Users("Ege Oner", 19, myNutrition);
+        Users myUser = new Users("Ege Oner", 19, myNutrition,94.5, 89.2);
         boolean isRunning = true;
 
         while(isRunning)
@@ -182,7 +221,9 @@ public class fitnesstracking {
             System.out.println("4- Add Water");
             System.out.println("5- See the Report for Today");
             System.out.println("6- End the Day and Advance to Tomorrow");
-            System.out.println("7- Quit");
+            System.out.println("7- Take Supplements (Creatine & Thermo)");
+            System.out.println("8- Update Current Weight");
+            System.out.println("9- Quit");
             System.out.print("Your Choice is = ");
             String choice = input.next();
 
@@ -219,10 +260,17 @@ public class fitnesstracking {
             }
             else if(choice.equals("6"))
             {
-                // will add resetting the nutritions tomorrow!
+                
                 myUser.goToNextDay();
             }
-            else if(choice.equals("7"))
+            else if(choice.equals("7")) {
+                myUser.getNutrition().takeSupplements();
+            } else if(choice.equals("8")) {
+                System.out.print("Enter your new weight: ");
+                double newWeight = input.nextDouble();
+                myUser.updateWeight(newWeight);
+            }
+            else if(choice.equals("9"))
             {
                 System.out.println("Program Shutting Down!");
                 isRunning = false;
